@@ -22,11 +22,11 @@ public class Guesser {
      * and review the section about constructors.
      *
      */
-    
+
     // Write the constructor below this line.
-    public Guesser (int low, int high){
+    public Guesser(int low, int high) {
         this.low = low;
-        this.high= high;
+        this.high = high;
 
     }
 
@@ -99,6 +99,13 @@ public class Guesser {
                 guess +
                 " (took me " + numberOfGuesses +
                 " guesses)");
+    }
+
+    public static void main(String[] args) {
+
+        Guesser guessingGame = new Guesser(0, 1000);
+        
+
     }
 
 }
