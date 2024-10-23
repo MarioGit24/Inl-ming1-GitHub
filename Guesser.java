@@ -37,7 +37,9 @@ public class Guesser {
      */
     public void start() {
         // call the rules method here
+        rules();
         // call the doGuesses() method here
+        doGuesses();
     }
 
     private void rules() {
@@ -104,7 +106,7 @@ public class Guesser {
     public static void main(String[] args) {
 
         Guesser guessingGame = new Guesser(0, 1000);
-        
+
 
     }
 
