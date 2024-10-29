@@ -35,7 +35,7 @@ Svar: För att rulla tillbaka till ett tidigare tillstånd har vi dem vanligaste
 git reset --soft:
 
  Denna återställer till en viss commit utan att ändra i själva arbetskatalogen.
-Denna är användbar om du tex råkade commita för snabbt och vill gå tillbaka för att redigera eller kombinera ändringar. 
+Denna är användbar om du tex råkade committa för snabbt och vill gå tillbaka för att redigera eller kombinera ändringar. HEAD flyttas också till den specifika commit du anger men alla ändringar du gör stannar i staging area.
 
 output exempel: 
 
@@ -93,7 +93,7 @@ Date:   Wed Oct 23 13:40:34 2024 +0200
 git reset --mixed(standard versionen):
 
 Används när du tex vill backa en eller flera commits men ändå
-behålla ändringar i arbetskatalogen, detta så du kan justera eller göra nya commits baserade på dessa förändringar.Denna kan vara användbar om du tex endast vill ta bort en commit men ändå ha kvar ändringarna i arbetskatalogen. 
+behålla ändringar i arbetskatalogen, detta så du kan justera eller göra nya commits baserade på dessa förändringar.Denna kan vara användbar om du tex endast vill ta bort en commit men ändå ha kvar ändringarna i arbetskatalogen. Den här version är också standard reseten så att om du tex skriver git reset så får du samma resultat som git reset --mixed, alla ändringar är dessutom kvar i arbetskatalogen men flyttas bort från stagen area. 
 
 output exempel: 
 
@@ -161,7 +161,7 @@ Date:   Wed Oct 23 13:21:50 2024 +0200
 git reset --hard HEAD~1 :
 
 Återställer en commit men tar bort alla ändringar i arbetskatalogen, bra om man 
-vill återställa till ett tidigare tillstånd och ta bort alla förändringar därefter. Denna kan vara riskabel men bra om man tex vill ha en ren historik utan efterföljande ändringar. 
+vill återställa till ett tidigare tillstånd och ta bort alla förändringar därefter. Denna kan vara riskabel men bra om man tex vill ha en ren historik utan efterföljande ändringar. Detta tar alltså bort staged och unstaged ändringar. 
 
 outputen blir tex : 
 
@@ -211,7 +211,7 @@ Date:   Wed Oct 23 12:39:22 2024 +0200
 git revert :
 
 är användbart om HEAD~1 innehåller en bugg som behöver fixas genom att helt enkelt backa ändringen, kommandot ångrar ändringarna i den angivna commit utan att förstöra 
-historiken. Är bra att använda i grupparbeten där historiken är viktig som ex.  
+historiken. Är bra att använda i grupparbeten där historiken är viktig som ex. Bra att veta är också att git revert är säkrare att använda än tex git reset eftersom att i grupparbeten så skapar revert en ny commit utan att ta bort ändringar från en tidigare commit.  
 
 Output exempel:
 Revert "skapade en textfil och svarade på frågorna."
@@ -258,22 +258,18 @@ till en gren.
 
 Om du vill skapa en ny gren för att behålla ändringarna du skapar, kan
 du göra det (nu eller senare) genom att använda switch-kommandot med -c.
+
 Exempel:
 
-  git switch -c <namn-på-ny-gren>
+git switch -c <namn-på-ny-gren>
 
-Eller gör den här ändringen ogjord med:
 
-  git switch -
-
-Stäng av den här hjälptexten genom att sätta konfigurationsvariabeln
-advice.detachedHead till false
-
+git switch - : Växlar du tillbaka till din branch med ifall du är i ett såkallat frånkopplat läge. Frånkopplat HEAD, i detta läget betyder att du inte är på någon specifik branch och kan välja vilken branch du vill gå till ned ex git switch main. 
+ 
+Output
 HEAD är nu på 445c6e0 skapade två filer och la till dem
 
 
-Frånkopplat HEAD, i detta läget betyder att du inte är på någon specifik branch och kan återgå till senaste commit på din branch 
-genom att skriva git checkout main ex. 
- 
+
 
  
