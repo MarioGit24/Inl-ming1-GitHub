@@ -1,0 +1,279 @@
+Vad är pull repektive push?
+
+git pull: använder man när man vill hämta och implementera från en remote 
+-repository till din lokal repository, det vill säga du hämtar dem senaste uppdateringarna. 
+
+git push: git push är lite tvärtom, det vill säga du skickar ändringar från din
+lokala repository till din remote repositoty, användbart när man vill dela 
+ändingar med andra utvecklare
+  
+När använder man log respektive status?
+
+git log: Använder man när man vill se sin commit-historia i den aktuella grenen
+och få en översikt om vem som gjort en tidigare ändring och vad dem har skapat för
+meddelande om commiten/ändringen. 
+
+git status: Används för att visa aktuell status på din arbetskatalog/working directory
+och informerar om vilka filer som ändrats samt vilka filer som lagts till i staging area 
+eller med andra ord blivit staged. används oftast innan en commit för att få info. 
+
+Vad är en Git branch och varför är de viktiga?
+
+Man har en huvudgren ofta kallad main eller master, och så har man en seperat utvecklingslinje 
+såkallad gren bara. huvudgrenen representerar den färdiga eller stabila versionen av projektet 
+medans vanliga grenar används för att jobba med nya funktioner och ändringar utan att påverka
+ main projektet, detta skapar en möjlighet för parallellt arbete.
+
+Det finns flera sätt att rulla tillbaka koden till ett tidigare tillstånd. 
+Förklara skillnaden och motivera när man skulle använda den ena eller andra metoden.
+Ge exempel på de kommandon du använder för att göra detta och vissa att det fungerar, 
+vilken output du fick från git-kommandona.
+Tips: Gör exemplen med att backa i en branch så att master fortfarande är korrekt
+
+Svar: För att rulla tillbaka till ett tidigare tillstånd har vi dem vanligaste 
+
+git reset --soft:
+
+ Denna återställer till en viss commit utan att ändra i själva arbetskatalogen.
+Denna är användbar om du tex råkade commita för snabbt och vill gå tillbaka för att redigera eller kombinera ändringar. 
+
+output exempel: 
+
+INNAN: 
+
+commit 394557a0dacafbc5ac4505101f240547b6b1ee0f (HEAD -> main, origin/main, ls)
+Author: mariobugarin <mario00@live.se>
+Date:   Sun Oct 27 15:16:58 2024 +0100
+
+    skapade en textfil och svarade på frågorna.
+
+commit 84f408d6b660a29c73b31e0de17d4ed055f255b8
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 17:09:17 2024 +0200
+
+    Skapade ett bash-script
+
+commit b356bf2da11151f862165300b9300bfa4db1811f
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 15:22:49 2024 +0200
+
+    Testade spelet. Det fungerar
+
+commit c482d0770ca107f2b31bd1f27cca4a37cc095e37
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 15:17:08 2024 +0200
+
+EFTER: 
+
+commit b356bf2da11151f862165300b9300bfa4db1811f (HEAD -> main)
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 15:22:49 2024 +0200
+
+    Testade spelet. Det fungerar
+
+commit c482d0770ca107f2b31bd1f27cca4a37cc095e37
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 15:17:08 2024 +0200
+
+    Fixade get reply samt tog ut main metoden till en seperat fil
+
+commit 05027cc440c9492e04b9f0739d1b6ae8b9fab040
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 14:26:00 2024 +0200
+
+    La till metoden rules och doGuesses
+
+commit e9a8d05ab43f293a52d3855a521ccf62576e5a57
+Author: Mario Bugarin <mariobugarin@MacBook-Air-som-tillhor-Mario.local>
+Date:   Wed Oct 23 13:40:34 2024 +0200
+
+    La till main klassen
+
+
+git reset --mixed(standard versionen):
+
+Används när du tex vill backa en eller flera commits men ändå
+behålla ändringar i arbetskatalogen, detta så du kan justera eller göra nya commits baserade på dessa förändringar.Denna kan vara användbar om du tex endast vill ta bort en commit men ändå ha kvar ändringarna i arbetskatalogen. 
+
+output exempel: 
+
+INNAN: 
+
+
+commit 394557a0dacafbc5ac4505101f240547b6b1ee0f (HEAD -> ls, origin/main)
+Author: mariobugarin <mario00@live.se>
+Date:   Sun Oct 27 15:16:58 2024 +0100
+
+    skapade en textfil och svarade på frågorna.
+
+commit 84f408d6b660a29c73b31e0de17d4ed055f255b8
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 17:09:17 2024 +0200
+
+    Skapade ett bash-script
+
+commit b356bf2da11151f862165300b9300bfa4db1811f (main)
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 15:22:49 2024 +0200
+
+    Testade spelet. Det fungerar
+
+commit c482d0770ca107f2b31bd1f27cca4a37cc095e37
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 15:17:08 2024 +0200
+
+    Fixade get reply samt tog ut main metoden till en seperat fil
+
+
+
+EFTER: 
+
+
+7cca4a37cc095e37
+Oköade ändringar efter återställning:
+M	guessingGame.java
+
+
+commit c482d0770ca107f2b31bd1f27cca4a37cc095e37 (HEAD -> ls)
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 15:17:08 2024 +0200
+
+    Fixade get reply samt tog ut main metoden till en seperat fil
+
+commit 05027cc440c9492e04b9f0739d1b6ae8b9fab040
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 14:26:00 2024 +0200
+
+    La till metoden rules och doGuesses
+
+commit e9a8d05ab43f293a52d3855a521ccf62576e5a57
+Author: Mario Bugarin <mariobugarin@MacBook-Air-som-tillhor-Mario.local>
+Date:   Wed Oct 23 13:40:34 2024 +0200
+
+    La till main klassen
+
+commit 22eb3db53717d6ad5e7460bac7dfd722d833a966
+Author: Mario Bugarin <mariobugarin@MacBook-Air-som-tillhor-Mario.local>
+Date:   Wed Oct 23 13:21:50 2024 +0200
+
+    La till konstruktor och kompilerade filen
+
+git reset --hard HEAD~1 :
+
+Återställer en commit men tar bort alla ändringar i arbetskatalogen, bra om man 
+vill återställa till ett tidigare tillstånd och ta bort alla förändringar därefter. Denna kan vara riskabel men bra om man tex vill ha en ren historik utan efterföljande ändringar. 
+
+outputen blir tex : 
+
+INNAN : 
+
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 15:17:08 2024 +0200
+
+    Fixade get reply samt tog ut main metoden till en seperat fil
+
+commit 05027cc440c9492e04b9f0739d1b6ae8b9fab040
+Author: mariobugarin <mario00@live.se>
+Date:   Wed Oct 23 14:26:00 2024 +0200
+
+    La till metoden rules och doGuesses
+
+commit e9a8d05ab43f293a52d3855a521ccf62576e5a57
+Author: Mario Bugarin <mariobugarin@MacBook-Air-som-tillhor-Mario.local>
+Date:   Wed Oct 23 13:40:34 2024 +0200
+
+    La till main klassen
+
+
+EFTER: 
+
+git reset --hard e9a8d05ab43f293a52d3855a521ccf62576e5a57
+HEAD är nu på e9a8d05 La till main klassen
+
+Author: Mario Bugarin <mariobugarin@MacBook-Air-som-tillhor-Mario.local>
+Date:   Wed Oct 23 13:40:34 2024 +0200
+
+    La till main klassen
+
+commit 22eb3db53717d6ad5e7460bac7dfd722d833a966
+Author: Mario Bugarin <mariobugarin@MacBook-Air-som-tillhor-Mario.local>
+Date:   Wed Oct 23 13:21:50 2024 +0200
+
+    La till konstruktor och kompilerade filen
+
+commit 445c6e0f2972f6184379dee7953ac3d51466745d (test)
+Author: Mario Bugarin <mariobugarin@MacBook-Air-som-tillhor-Mario.local>
+Date:   Wed Oct 23 12:39:22 2024 +0200
+
+    skapade två filer och la till dem
+
+
+git revert :
+
+är användbart om HEAD~1 innehåller en bugg som behöver fixas genom att helt enkelt backa ändringen, kommandot ångrar ändringarna i den angivna commit utan att förstöra 
+historiken. Är bra att använda i grupparbeten där historiken är viktig som ex.  
+
+Output exempel:
+Revert "skapade en textfil och svarade på frågorna."
+
+This reverts commit 394557a0dacafbc5ac4505101f240547b6b1ee0f.
+
+# Ange incheckningsmeddelandet för dina ändringar. Rader som inleds
+# med ”#” kommer ignoreras, och ett tomt meddelande avbryter incheckningen.
+#
+# På grenen ls
+# Ändringar att checka in:
+#       borttagen:     "fr\303\245gor.txt"
+#
+~                                                                                                  
+~                                                                                                  
+~                                                                                                  
+~                                                                                                  
+~                                                                                                  
+~                                                                                                  
+~                                                                                                  
+~                                                                                                  
+~                                                                                                  
+~                                                                                                  
+~                                                                                                  
+~                                                                                                  
+"~/guessingGame/.git/COMMIT_EDITMSG" 11L, 354B
+
+ 
+ 
+git checkout: 
+
+Detta kommandot gör så att man kan rulla tillbaka till en tidigare version eller commit för att exempelvis titta på den, kompilera den eller testa koden. Detta kan vara bra om 
+man endast vill kontrollera en äldre version av en kod men inte vill ändra något permanent. 
+
+output:
+
+git checkout 445c6e0f2972f6184379dee7953ac3d51466745d
+Observera: checkar ut ”445c6e0f2972f6184379dee7953ac3d51466745d”.
+
+Du har nu ett ”frånkopplat HEAD”. Du kan se dig omkring, experimentera
+med ändringar och checka in dem, och du kan kasta incheckningar du gör
+i det här läget utan att det påverkar grenar genom att växla tillbaka
+till en gren.
+
+Om du vill skapa en ny gren för att behålla ändringarna du skapar, kan
+du göra det (nu eller senare) genom att använda switch-kommandot med -c.
+Exempel:
+
+  git switch -c <namn-på-ny-gren>
+
+Eller gör den här ändringen ogjord med:
+
+  git switch -
+
+Stäng av den här hjälptexten genom att sätta konfigurationsvariabeln
+advice.detachedHead till false
+
+HEAD är nu på 445c6e0 skapade två filer och la till dem
+
+
+Frånkopplat HEAD, i detta läget betyder att du inte är på någon specifik branch och kan återgå till senaste commit på din branch 
+genom att skriva git checkout main ex. 
+ 
+
+ 
