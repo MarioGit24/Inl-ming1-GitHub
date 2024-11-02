@@ -1,19 +1,14 @@
-
-Name="Mario_Bugarin"
-
+name="Mario_Bugarin"
 
 echo "$name"
 
-
-mkdir -p "$name_program"
-
-source_files=("Guesser.java" "guessingGame.java")
-program_folder= "Mario_Bugarin program"
+program_folder="${name}_program"
 
 mkdir -p "$program_folder"
 
-for file in *.java 
- do
+source_files=("Guesser.java" "guessingGame.java")
+
+for file in "${source_files[@]}"; do
     cp "$file" "$program_folder"
 done
 
@@ -21,16 +16,16 @@ cd "$program_folder" || exit
 
 echo "Current working directory: $(pwd)"
 
-echo "Compiling..." 
+echo "Compiling..."
 javac *.java
+
 
 echo "Running game..."
 java guessingGame
 
 echo "done."
 
-echo "Removing class files..." 
-
+echo "Removing class files..."
 rm *.class
 
-ls 
+ls
